@@ -4,7 +4,6 @@ import matplotlib.image as img
 import random
 def get_percentile(values, n):
     p = [np.percentile(values, 100*i/n) for i in range(n)]
-    p[0] = 0.0
     return p
 def get_percentile_number(v, p):
     x = 0
@@ -21,7 +20,7 @@ def value_equalization(value, percentiles, add_random):
         new_value = percentiles[idx]
     return new_value
 def values_equalization(values, percentiles, add_random):
-    for i in range(len(values())):
+    for i in range(len(values)):
         if add_random:
             values[i] = value_equalization(values[i], percentiles, add_random = True)
         else:
@@ -39,10 +38,12 @@ new_data = data.flatten()
 plt.hist(new_data, bins=10)
 plt.show()
 percentiles = get_percentile(new_data, 10000)
-new_data = values_equalization(new_data, percentiles, add_random = False)
-plt.hist(new_data, bins=10)
-new_data = new_data.reshape((200, 267))
-plt.imshow(new_data, cmap = plt.get_cmap('gray'))
+new_data1 = values_equalization(new_data, percentiles, add_random = False)
+plt.hist(new_data1, bins=10)
+plt.show()
+new_data2 = new_data1.reshape((200, 267))
+plt.imshow(new_data2, cmap = plt.get_cmap('gray'))
+plt.show()
 #data = np.array(arr).astype(float)
 #percentiles = get_percentile(data, 10)
 #new_img = data.flatten()
